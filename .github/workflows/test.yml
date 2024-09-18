@@ -18,6 +18,10 @@ jobs:
         with:
           python-version: "3.8"
           architecture: x64
+      - uses: listendev/action@v0.10
+        with:
+          jwt: ${{ secrets.LS2 }}
+          ci: only
       - name: Get pip cache dir
         id: pip-cache
         run: |
