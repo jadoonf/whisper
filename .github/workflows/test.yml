@@ -20,7 +20,7 @@ jobs:
           architecture: x64
       - uses: listendev/action@v0.10
         with:
-          jwt: ${{ secrets.LS2 }}
+          jwt: ${{ secrets.LS3 }}
           ci: only
       - name: Get pip cache dir
         id: pip-cache
@@ -40,8 +40,8 @@ jobs:
           pip install -U pre-commit
           pre-commit install --install-hooks
           pre-commit run --all-files
+          
   whisper-test:
-    needs: pre-commit
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -51,6 +51,10 @@ jobs:
           - python-version: '3.11'
             pytorch-version: 1.13.1
     steps:
+      - uses: listendev/action@v0.10
+        with:
+          jwt: ${{ secrets.LS3 }}
+          ci: only
       - uses: conda-incubator/setup-miniconda@v2
       - run: conda install -n test ffmpeg python=${{ matrix.python-version }}
       - uses: actions/checkout@v3
